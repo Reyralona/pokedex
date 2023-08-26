@@ -75,7 +75,7 @@ async function generateCard(url) {
     let name = title(data.name);
 
     let cardtemplate = `
-    <div class="card flex-col" data-aos="fade-left">
+    <a href="${data.name}" class="card flex-col" data-aos="fade-left">
     <img src="${img}"/>
     <div class="cardid">${id}</div>
     <div class="cardpokename">${name}</div>
@@ -89,16 +89,20 @@ async function generateCard(url) {
       )}</div>`;
     }
 
-    cardtemplate += `</div></div>`;
+    cardtemplate += `</div></a>`;
 
     document
-      .querySelector(".container")
+      .querySelector(".pokecontainer")
       .insertAdjacentHTML("beforeend", cardtemplate);
+
+    // document.querySelector(`#pokemon${data.id}`).onclick = () => {
+    //   console.log(data.name)
+    // };
   });
 }
 
 async function generateOfType(url, type) {
-  getapi(url).then(async (data) => {
+  await getapi(url).then(async (data) => {
     for (let i = 0; i < data.types.length; i++) {
       if (data.types[String(i)].type.name == type) {
         await generateCard(url);
@@ -107,12 +111,22 @@ async function generateOfType(url, type) {
   });
 }
 
-async function generatePokemonCard(name){
-  generateCard(`https://pokeapi.co/api/v2/pokemon/${name}`)
+async function generatePokemonCard(name) {
+  await generateCard(`https://pokeapi.co/api/v2/pokemon/${name}`);
 }
 
-for (let i = 1; i <= 151; i++) {
-  let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-  await generateCard(url)
+async function generateNumOfCards(last, num) {
+  for (let i = last; i <= num; i++) {
+    let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+    lastpokemonid = num;
+    await generateCard(url);
+  }
 }
 
+var lastpokemonid = 1;
+var increasesize = 35;
+generateNumOfCards(lastpokemonid, increasesize);
+
+document.querySelector("#load").onclick = () => {
+  generateNumOfCards(lastpokemonid + 1, lastpokemonid + increasesize);
+};

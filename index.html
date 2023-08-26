@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="scrollbar-style-2">
+<html lang="en" class="scrollbar-style-2" data-bs-theme="light">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css" />
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -16,16 +19,28 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container flex-row flex-center flex-around">
-
+    <div class="outer-pokecontainer flex-col flex-center">
+      <div class="pokenavbar flex-row flex-center">
+        <div class="pokeball">
+          <div class="pokeball-divisor"></div>
+          <div class="pokeball-center"></div>
+          <div class="pokeball-shine"></div>
+        </div>
+      </div>
+      <div class="pokecontainer flex-row flex-center flex-around"></div>
+      <button class="loadbutton" id="load">
+        <h3 class="loadbuttontext">Load More</h3>
+      </button>
+      
     </div>
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-      AOS.init();
+      AOS.init({
+        once: true,
+      });
     </script>
     <script type="module" src="/main.js"></script>
   </body>
